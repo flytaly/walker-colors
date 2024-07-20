@@ -21,28 +21,8 @@ const FORMATS = [
 
 const args = process.argv.slice(2);
 
-if (args.length < 1) {
-    console.log(JSON.stringify([{ label: 'nothing ' + args.length }]));
-    process.exit();
-}
-
-try {
-    const colorInput = args[0];
-    // console.log(JSON.stringify([{ label: colorInput, searchable: colorInput }]));
-    const output = getFormats(colorInput);
-    console.log(JSON.stringify(output));
-} catch (e) {
-    const msg = e.message;
-    if (typeof msg === 'string' && msg.match(/doesn't have a correct format/)) {
-        console.log(
-            JSON.stringify([
-                {
-                    label: 'incorrect format',
-                    searchable: args[0],
-                },
-            ]),
-        );
-    }
+function printEntries(entries: WalkerEntry[]) {
+    console.log(JSON.stringify(entries));
 }
 
 function getFormats(colorInput: string): WalkerEntry[] {
@@ -61,3 +41,23 @@ function getFormats(colorInput: string): WalkerEntry[] {
     }
     return output;
 }
+
+const input = args[0];
+
+if (!input) {
+    printEntries([]);
+    process.exit();
+}
+
+let entries: WalkerEntry[] = [];
+
+try {
+    entries = getFormats(input);
+} catch (e) {
+    const msg = e.message;
+    if (typeof msg === 'string' && msg.match(/doesn't have a correct format/)) {
+        entries = [{ label: 'incorrect format', searchable: input }];
+    }
+}
+
+printEntries(entries);
