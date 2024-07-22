@@ -1,47 +1,64 @@
-import { ColorTranslator, InputOptions } from 'colortranslator';
+import { colord, extend, type Colord } from 'colord';
+import cmykPlugin from 'colord/plugins/cmyk';
+import hwbPlugin from 'colord/plugins/hwb';
+import labPlugin from 'colord/plugins/lab';
+import lchPlugin from 'colord/plugins/lch';
+import namesPlugin from 'colord/plugins/names';
+import type { Format, WalkerEntry } from './types';
+extend([namesPlugin, cmykPlugin, hwbPlugin, labPlugin, lchPlugin]);
 
-const OPTS: InputOptions = {
-    legacyCSS: false,
-    spacesAfterCommas: false,
-    decimals: 2,
-};
-
-const FORMATS = [
+const OUTPUTS = [
     'HEX', //
-    'HEXA',
+    'Closest CSS Name',
     'RGB',
-    'RGBA',
     'HSL',
-    'HSLA',
-    'CIELab',
-    'CIELabA',
+    'HWB',
     'CMYK',
-    'CMYKA',
-] as const;
+    'LCH',
+] as Format[];
 
-const args = process.argv.slice(2);
+const convFns: Record<Format, (c: Colord) => string | undefined> = {
+    HEX: (c: Colord) => c.toHex(),
+    RGB: (c: Colord) => c.toRgbString(),
+    HSL: (c: Colord) => c.toHslString(),
+    'Closest CSS Name': (c: Colord) => c.toName({ closest: true }),
+    HWB: (c: Colord) => c.toHwbString(),
+    CMYK: (c: Colord) => c.toCmykString(),
+    LCH: (c: Colord) => c.toLchString(),
+} as const;
 
 function printEntries(entries: WalkerEntry[]) {
-    console.log(JSON.stringify(entries));
+    console.log(JSON.stringify(entries, null, 2));
 }
 
-function getFormats(colorInput: string): WalkerEntry[] {
-    const colorParsed = new ColorTranslator(colorInput, OPTS);
-    const output: WalkerEntry[] = [];
+function convert(input: string): WalkerEntry[] {
+    if (!input) {
+        return [];
+    }
+    const col = colord(input);
+    if (!col.isValid()) {
+        return [{ label: 'incorrect format', searchable: input }];
+    }
 
-    for (const format of FORMATS) {
-        const converted = colorParsed[format];
+    let entries: WalkerEntry[] = [];
+    for (const format of OUTPUTS) {
+        const fn = convFns[format];
+        const converted = fn(col);
+        if (!converted) continue;
+
         const entry: WalkerEntry = {
             label: converted,
             sub: format,
-            searchable: colorInput,
+            searchable: input,
             exec: `wl-copy '${converted}'`,
         };
-        output.push(entry);
+
+        entries.push(entry);
     }
-    return output;
+    return entries;
 }
 
+const args = process.argv.slice(2);
 const input = args[0];
 
 if (!input) {
@@ -49,15 +66,4 @@ if (!input) {
     process.exit();
 }
 
-let entries: WalkerEntry[] = [];
-
-try {
-    entries = getFormats(input);
-} catch (e) {
-    const msg = e.message;
-    if (typeof msg === 'string' && msg.match(/doesn't have a correct format/)) {
-        entries = [{ label: 'incorrect format', searchable: input }];
-    }
-}
-
-printEntries(entries);
+printEntries(convert(input));

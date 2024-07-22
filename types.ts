@@ -1,4 +1,4 @@
-declare type WalkerEntry = {
+export type WalkerEntry = {
     label?: string;
     sub?: string;
     exec?: string;
@@ -20,3 +20,5 @@ declare type WalkerEntry = {
     score_final?: number;
     score_fuzzy?: number;
 };
+
+export type Format = 'HEX' | 'Closest CSS Name' | 'RGB' | 'HSL' | 'HWB' | 'CMYK' | 'LCH';

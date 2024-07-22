@@ -4,14 +4,14 @@
     "type": "module",
     "main": "index.js",
     "scripts": {
-        "build": "esbuild converter.ts --bundle --outdir=dist"
+        "build": "esbuild converter.ts --bundle --outdir=dist --platform=node"
     },
     "author": "",
     "license": "ISC",
     "description": "",
     "dependencies": {
         "@types/node": "^20.14.11",
-        "colortranslator": "^4.1.0",
+        "colord": "^2.9.3",
         "esbuild": "^0.23.0"
     }
 }
