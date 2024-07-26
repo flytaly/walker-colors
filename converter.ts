@@ -5,6 +5,8 @@ import labPlugin from 'colord/plugins/lab';
 import lchPlugin from 'colord/plugins/lch';
 import namesPlugin from 'colord/plugins/names';
 import type { Format, WalkerEntry } from './types';
+import { generateSVG, saveIfNotExists } from './image';
+
 extend([namesPlugin, cmykPlugin, hwbPlugin, labPlugin, lchPlugin]);
 
 const OUTPUTS = [
@@ -31,7 +33,7 @@ function printEntries(entries: WalkerEntry[]) {
     console.log(JSON.stringify(entries, null, 2));
 }
 
-function convert(input: string): WalkerEntry[] {
+async function convert(input: string): Promise<WalkerEntry[]> {
     if (!input) {
         return [];
     }
@@ -39,6 +41,9 @@ function convert(input: string): WalkerEntry[] {
     if (!col.isValid()) {
         return [{ label: 'incorrect format', searchable: input }];
     }
+
+    const svg = generateSVG(col.toHex(), 100, 100);
+    const imagePath = await saveIfNotExists(`walker-colors_${col.toHex().slice(1)}.svg`, svg);
 
     let entries: WalkerEntry[] = [];
     for (const format of OUTPUTS) {
@@ -51,6 +56,8 @@ function convert(input: string): WalkerEntry[] {
             sub: format,
             searchable: input,
             exec: `wl-copy '${converted}'`,
+            icon: imagePath,
+            icon_is_image: true,
         };
 
         entries.push(entry);
@@ -66,4 +73,4 @@ if (!input) {
     process.exit();
 }
 
-printEntries(convert(input));
+convert(input).then(printEntries);
