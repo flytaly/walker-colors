@@ -30,7 +30,7 @@ const convFns: Record<Format, (c: Colord) => string | undefined> = {
 } as const;
 
 function printEntries(entries: WalkerEntry[]) {
-    console.log(JSON.stringify(entries, null, 2));
+    console.log(JSON.stringify(entries));
 }
 
 async function convert(input: string): Promise<WalkerEntry[]> {
