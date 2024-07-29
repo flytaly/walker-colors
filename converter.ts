@@ -11,9 +11,9 @@ extend([namesPlugin, cmykPlugin, hwbPlugin, labPlugin, lchPlugin]);
 
 const OUTPUTS = [
     'HEX', //
-    'Closest CSS Name',
     'RGB',
     'HSL',
+    'Closest CSS Name',
     'HWB',
     'CMYK',
     'LCH',

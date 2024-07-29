@@ -476,9 +476,9 @@ k([names_default, cmyk_default, hwb_default, lab_default, lch_default]);
 var OUTPUTS = [
   "HEX",
   //
-  "Closest CSS Name",
   "RGB",
   "HSL",
+  "Closest CSS Name",
   "HWB",
   "CMYK",
   "LCH"
