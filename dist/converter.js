@@ -515,8 +515,7 @@ async function convert(input2) {
       sub: format,
       searchable: input2,
       exec: `wl-copy '${converted}'`,
-      icon: imagePath,
-      icon_is_image: true
+      icon: imagePath
     };
     entries.push(entry);
   }

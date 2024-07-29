@@ -57,7 +57,6 @@ async function convert(input: string): Promise<WalkerEntry[]> {
             searchable: input,
             exec: `wl-copy '${converted}'`,
             icon: imagePath,
-            icon_is_image: true,
         };
 
         entries.push(entry);
