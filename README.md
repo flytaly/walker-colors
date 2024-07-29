@@ -8,7 +8,7 @@ Node.js should be installed.
 Copy the `converter.js` file from the /dist folder somewhere and add path to it to the walker configuration `~/.config/walker/config.json`
 
 Example: 
-```
+```json
    "plugins": [        
         {
             "name": "colors",
@@ -21,7 +21,7 @@ Example:
 
 For example on Hyprland
 
-```
+```bash
 hyprpicker | xargs walker -m colors -q   
 ```
 
