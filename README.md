@@ -1,6 +1,6 @@
 # Walker-colors
 
-Color converter plugin for walker [walker](https://github.com/abenz1267/walker) (wayland-native application runner).
+Color converter plugin for [walker](https://github.com/abenz1267/walker) (wayland-native application runner).
 
 ## Usage
 
