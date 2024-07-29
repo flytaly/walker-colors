@@ -2,6 +2,9 @@
 
 Color converter plugin for [walker](https://github.com/abenz1267/walker) (wayland-native application runner).
 
+![image](https://github.com/user-attachments/assets/345ef7a0-ca23-4530-a765-10256b3c2602)
+
+
 ## Usage
 
 Node.js should be installed.
