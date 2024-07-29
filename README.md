@@ -17,11 +17,18 @@ Example:
        },
 ```
 
+Now you can access it with the prefix `col` or by launching walker with the `-m colors` option.
+
+```bash
+walker -k -m colors
+```
+
+
 ## Usage as an assistant tool for color pickers
 
 For example on Hyprland
 
 ```bash
-hyprpicker | xargs walker -m colors -q   
+hyprpicker | xargs walker -k -m colors -q   
 ```
 
