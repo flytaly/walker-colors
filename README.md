@@ -17,3 +17,11 @@ Example:
        },
 ```
 
+## Usage as an assistant tool for color pickers
+
+For example on Hyprland
+
+```
+hyprpicker | xargs walker -m colors -q   
+```
+
