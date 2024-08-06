@@ -17,14 +17,16 @@ Example:
             "name": "colors",
             "src": "node $HOME/.config/walker/plugins/walker-colors/dist/converter.js \"%TERM%\"",
             "prefix": "col",
-            "show_sub_when_single": true
+            "keep_sort": true,
+            "show_sub_when_single": true,
+            "show_icon_when_single": true
        },
 ```
 
 Now you can access it with the prefix `col` or by launching walker with the `-m colors` option.
 
 ```bash
-walker -k -m colors
+walker -m colors
 ```
 
 ## Usage as an assistant tool for color pickers
@@ -32,5 +34,5 @@ walker -k -m colors
 For example on Hyprland
 
 ```bash
-hyprpicker | xargs walker -k -n -m colors -q
+hyprpicker | xargs walker -n -m colors -q
 ```
