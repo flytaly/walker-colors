@@ -7,9 +7,28 @@ Color converter plugin for [walker](https://github.com/abenz1267/walker) (waylan
 ## Usage
 
 Node.js should be installed.
-Copy the `converter.js` file from the /dist folder somewhere and add path to it to the walker configuration `~/.config/walker/config.json`
+Copy the `converter.js` file from the /dist folder somewhere and add path to it to the walker configuration
 
-Example:
+<details open>
+  <summary>TOML format</summary>
+  
+`~/.config/walker/config.toml`
+
+```toml
+[[plugins]]
+name = "colors"
+src = 'node $HOME/.config/walker/plugins/colors/dist/converter.js "%TERM%"'
+prefix = "col"
+keep_sort = true
+show_sub_when_single = true
+show_icon_when_single = true
+```
+</details>
+
+<details>
+  <summary>or JSON format</summary>
+  
+`~/.config/walker/config.json`
 
 ```json
    "plugins": [
@@ -22,6 +41,7 @@ Example:
             "show_icon_when_single": true
        },
 ```
+</details>
 
 Now you can access it with the prefix `col` or by launching walker with the `-m colors` option.
 
