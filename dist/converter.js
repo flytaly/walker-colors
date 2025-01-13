@@ -499,9 +499,12 @@ async function convert(input2) {
   if (!input2) {
     return [];
   }
-  const col = w(input2);
+  let col = w(input2);
   if (!col.isValid()) {
-    return [{ label: "incorrect format", searchable: input2 }];
+    col = w("#" + input2);
+    if (!col.isValid()) {
+      return [{ label: "incorrect format", searchable: input2 }];
+    }
   }
   const svg = generateSVG(col.toHex(), 100, 100);
   const imagePath = await saveIfNotExists(`walker-colors_${col.toHex().slice(1)}.svg`, svg);

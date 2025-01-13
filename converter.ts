@@ -37,9 +37,14 @@ async function convert(input: string): Promise<WalkerEntry[]> {
     if (!input) {
         return [];
     }
-    const col = colord(input);
+
+    let col = colord(input);
+
     if (!col.isValid()) {
-        return [{ label: 'incorrect format', searchable: input }];
+        col = colord('#' + input);
+        if (!col.isValid()) {
+            return [{ label: 'incorrect format', searchable: input }];
+        }
     }
 
     const svg = generateSVG(col.toHex(), 100, 100);
