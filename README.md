@@ -48,7 +48,7 @@ show_icon_when_single = true
 Now you can access it with the prefix `col` or by launching walker with the `-m colors` option.
 
 ```bash
-walker -m colors
+walker -k -m colors
 ```
 
 ## Usage as an assistant tool for color pickers
@@ -56,7 +56,7 @@ walker -m colors
 For example on Hyprland
 
 ```bash
-hyprpicker | xargs walker -n -m colors -q
+hyprpicker | xargs walker -kn -m colors -q
 ```
 
 ## Hex format and the hash `#`
