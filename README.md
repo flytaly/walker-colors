@@ -63,7 +63,8 @@ hyprpicker | xargs walker -n -m colors -q
 
 If walker uses `#` as a delimiter, then the standard hex format, which starts with "#", won't work. Therefore, you should either change the "argument_delimiter" option or use hex format without leading "#".
 
-```toml
-[search]
-argument_delimiter = "#"
+```diff
+  [search]
+- argument_delimiter = "#"
++ argument_delimiter = "\\"
 ```
