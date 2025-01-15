@@ -33,15 +33,11 @@ function printEntries(entries: WalkerEntry[]) {
     console.log(JSON.stringify(entries));
 }
 
-async function convert(input: string): Promise<WalkerEntry[]> {
-    if (!input) {
-        return [];
-    }
-
-    let col = colord(input);
+async function convert(input: string = ''): Promise<WalkerEntry[]> {
+    let col = colord(input.trim());
 
     if (!col.isValid()) {
-        col = colord('#' + input);
+        col = colord('#' + input.trim());
         if (!col.isValid()) {
             return [{ label: 'incorrect format', searchable: input }];
         }

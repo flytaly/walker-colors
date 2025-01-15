@@ -495,13 +495,10 @@ var convFns = {
 function printEntries(entries) {
   console.log(JSON.stringify(entries));
 }
-async function convert(input2) {
-  if (!input2) {
-    return [];
-  }
-  let col = w(input2);
+async function convert(input2 = "") {
+  let col = w(input2.trim());
   if (!col.isValid()) {
-    col = w("#" + input2);
+    col = w("#" + input2.trim());
     if (!col.isValid()) {
       return [{ label: "incorrect format", searchable: input2 }];
     }
